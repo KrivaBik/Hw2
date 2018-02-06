@@ -1,5 +1,6 @@
 const express =require('express');
 var winston = require('winston');
+var fs = require("fs");
 
 var nodeEnv = process.env.NODE_ENV;
 const app= express();
@@ -14,9 +15,6 @@ else
     loggerTransports.push(new winston.transports.File({ filename: 'combined.log',level: 'info' }));
 const logger = new (winston.Logger)({ transports: loggerTransports });
 
-// logger.info('Hello world');
-// logger.warn('Warning message');
-// logger.debug('Debugging info');
 
 app.use(function (req,res,next) {
     logger.info(req.url);
@@ -38,6 +36,12 @@ app.get('/3', function (req, res) {
 });
 app.get('/4', function (req, res) {
     res.sendFile(__dirname+"/kek.html");
+});
+var list2;
+app.get('/list', function (req,res) {
+    if(!list2) list2=JSON.parse(fs.readFileSync(__dirname+"/name.json", "utf8"));
+    list2.push("asdf");
+    res.send(JSON.stringify(list2));
 });
 
 app.listen(3000, function(){

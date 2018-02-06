@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.2",
+    "fs": "0.0.1-security",
     "winston": "^2.4.0"
   }
 }
