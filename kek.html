@@ -6,5 +6,60 @@
 </head>
 <body>
 <h1> Hello w</h1>
+<ul id="ul">
+
+</ul>
+<table  id="t" border="1">
+    <tr>
+        <td>ChID</td>
+        <td>ProdId</td>
+        <td>ProdName</td>
+        <td>Um</td>
+    </tr>
+</table>
+<script>
+    var ul =document.getElementById("ul");
+    var p =document.getElementById("p");
+    var  table=document.getElementById("t");
+    var xhr = new XMLHttpRequest();
+
+    function addRo(tr, value) {
+        var td = document.createElement('td');
+        td.innerHTML = value;
+        tr.appendChild(td);
+    }
+//    xhr.open('GET', '/2/getList', false);
+//    xhr.send();
+//   var listName= JSON.parse(xhr.responseText);
+//   for(var key in listName) {
+//       write(listName[key]);
+//   }
+//    function write(text) {
+//        var li = ul.appendChild(document.createElement('li'));
+//        li.innerHTML = text;
+//    }
+    var xhr2 = new XMLHttpRequest();
+    xhr2.open('GET', '/2/getListFromDb', false);
+    xhr2.send();
+    var dataFromDb=JSON.parse(xhr2.responseText);
+    for (var i=0;i<dataFromDb.length;i++) {
+        var tr = document.createElement('tr');
+        var obj=dataFromDb[i];
+        for (key in obj){
+            addRo(tr,obj[key]);
+        }
+        table.appendChild(tr);
+    }
+
+//    var listNameDb= xhr2.responseText;
+//    for(var key in listName) {
+//           write(listNameDb[key]);
+//       }
+//        function write(text) {
+//            var li = ul.appendChild(document.createElement('li'));
+//            li.innerHTML = listNameDb;
+//        }
+
+</script>
 </body>
 </html>
